@@ -9,18 +9,17 @@ Work in progress
 
 ```mermaid
 classDiagram
+    WeatherController ..> Model
+    WeatherController ..> WeatherService
     WeatherService ..> DataReader
-    WeatherService ..> Model
     DataReader <|.. FileReader
 
-    WeatherController ..> Model
-
-    class WeatherService{
-      -calcCurrentWeather(List~WeatherData~*) WeatherData
-      -updateModel(WeatherData)
+    class WeatherController{
+        +deliverHtml
     }
 
-    class WeatherController{
+    class WeatherService{
+        +calcCurrentWeather(List~WeatherData~*) WeatherData
     }
 
     class DataReader{
