@@ -1,3 +1,13 @@
+# build files
+build/
+.gradle/
+
+# IDE
+.idea/
+
+# MacOs
+*.DS_Store
+
 # Compiled class file
 *.class
 
