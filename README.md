@@ -9,7 +9,6 @@ Work in progress
 
 ```mermaid
 classDiagram
-    classDiagram
     WeatherService ..> DataReader
     WeatherService ..> Model
     DataReader <|.. FileReader
