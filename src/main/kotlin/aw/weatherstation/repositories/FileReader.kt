@@ -6,11 +6,12 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.FileNotFoundException
+import java.time.LocalDate
 
 @Component
 class FileReader: DataReader {
     override fun readData(): List<WeatherData>? {
-        val filePath = "./src/main/resources/static/sampleData.json"
+        val filePath = "./data/${LocalDate.now()}.json"
         try {
             // Read the JSON content from the file
             val jsonContent = File(filePath).readText()
