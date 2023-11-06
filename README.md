@@ -33,6 +33,7 @@ classDiagram
     class FileReader{
     }
 ```
+## Control Flow
 ```mermaid
 sequenceDiagram
 actor User
