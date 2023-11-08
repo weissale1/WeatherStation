@@ -1,12 +1,34 @@
-from datetime import datetime
+import adafruit_dht
+import board
 import json
+import time
 
-def get_sensor_data(timestamp):
-    # TODO: Replace with sensor input
+from datetime import datetime
+from statistics import mean
+
+def get_sensor_data(dhtDevice, no_of_measurements_needed):
+    raw_data = []
+    while len(raw_data) < no_of_measurements_needed:
+        try:
+            temp_c = dhtDevice.temperature
+            humidity = dhtDevice.humidity
+            raw_data.append((temp_c, humidity))
+        except RuntimeError as error:
+            # Errors reading from DHT22 happen regularly. Simply retry.
+            time.sleep(2.0)
+            continue
+    return raw_data
+
+def format_data(timestamp, raw_data):
+    temps = []
+    humids = []
+    for d in raw_data:
+        temps.append(d[0])
+        humids.append(d[1])
     wd = {
         "timestamp": timestamp.isoformat(timespec="seconds"),
-        "temp": 20.0,
-        "humid": 50.0
+        "temp": mean(temps),
+        "humid": mean(humids)
     }
     return wd
 
@@ -26,7 +48,13 @@ def save_data_to_file(file_path, wd):
     with open(file_path, 'w') as file:
         json.dump(data, file, indent=4)
 
-# get sensor data and save
+# get sensor data
+dhtDevice = adafruit_dht.DHT22(board.D4, use_pulseio=False)
+no_of_measurements_needed = 5
+raw_data = get_sensor_data(dhtDevice, no_of_measurements_needed)
+dhtDevice.exit()
+
+# format and save data
 timestamp = datetime.now()
-path = f"./data/{timestamp.strftime('%Y-%m-%d')}.json"
-save_data_to_file(path, get_sensor_data(timestamp))
+path = f"../data/{timestamp.strftime('%Y-%m-%d')}.json"
+save_data_to_file(path, format_data(timestamp, raw_data))
