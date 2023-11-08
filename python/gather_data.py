@@ -13,7 +13,7 @@ def get_sensor_data(dhtDevice, no_of_measurements_needed):
             temp_c = dhtDevice.temperature
             humidity = dhtDevice.humidity
             raw_data.append((temp_c, humidity))
-        except RuntimeError as error:
+        except RuntimeError:
             # Errors reading from DHT22 happen regularly. Simply retry.
             time.sleep(2.0)
             continue
