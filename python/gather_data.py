@@ -1,4 +1,4 @@
-import adafruit_dht
+import adafruit_dht # pip3 install adafruit-circuitpython-dht
 import board
 import json
 import time
