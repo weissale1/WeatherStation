@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  # be:
+  #   image: weissale1/weatherstation2:0.0.1
+  #   ports:
+  #     - "5000:5000"
+  #   depends_on:
+  #     - db
+  #   env_file:
+  #     - path: ./.env
+  #       required: true
+
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+      - weather_db:/var/lib/postgresql/data
+
+volumes:
+  weather_db:
