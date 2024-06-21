@@ -1,15 +1,14 @@
 version: '3'
 
 services:
-  # be:
-  #   image: weissale1/weatherstation2:0.0.1
-  #   ports:
-  #     - "5000:5000"
-  #   depends_on:
-  #     - db
-  #   env_file:
-  #     - path: ./.env
-  #       required: true
+  api:
+     image: weissale1/weatherstation:0.0.2
+     ports:
+       - "5000:5000"
+     depends_on:
+       - db
+     networks:
+       - weather_net
 
   db:
     image: postgres:latest
@@ -19,6 +18,12 @@ services:
       POSTGRES_PASSWORD: example
     volumes:
       - weather_db:/var/lib/postgresql/data
+    networks:
+      - weather_net
 
 volumes:
   weather_db:
+
+networks:
+  weather_net:
+    driver: bridge
