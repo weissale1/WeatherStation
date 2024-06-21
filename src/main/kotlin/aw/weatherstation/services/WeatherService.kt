@@ -13,7 +13,7 @@ import org.springframework.web.reactive.function.client.awaitBody
 @Service
 class WeatherService(private val db: WeatherRepository) {
     val webClient = WebClient.builder()
-        .baseUrl("http://localhost:5000")
+        .baseUrl("http://sensors:5000")
         .build()
 
     fun getCurrentWeather(): WeatherData {

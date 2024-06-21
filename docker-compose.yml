@@ -23,6 +23,7 @@ services:
 
   sensors:
     image: weissale1/weathersensors:0.0.3
+    privileged: true
     ports:
       - "5000:5000"
     networks:
