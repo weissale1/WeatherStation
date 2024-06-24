@@ -22,7 +22,7 @@ services:
       - weather_net
 
   sensors:
-    image: weissale1/weathersensors:0.0.4
+    image: weissale1/weathersensors:0.0.5
     privileged: true
     ports:
       - "5000:5000"
