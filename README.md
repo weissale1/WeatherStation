@@ -1,15 +1,10 @@
 # WeatherStation
-
 WeatherStation is a over engineered server application for home temperature and humidity monitoring.
 
 > This project is used as a playground to try and explore
 > different Frameworks, Languages and distributed architectures using docker.
 
 The server
-- displays the current temperature and humidity via a REST-API
-- collects temperature and humidity data every 5 minutes
-- stores this data for future analytics
-
 
 
 ## Running and using WeatherStation
@@ -17,29 +12,29 @@ The server
 1. Copy the docker compose file from this repository.
 2. Run `docker compose up`
 
-Images are build to run on a arm7 platform.
+> Images are build to run on a arm7 platform.
 
 ## Project Structure
+The whole project consists of 3 Services, each running in their own Docker container.
 
-### Class diagram
+**WeatherStation**\
+Central API server.
+- displays the current temperature and humidity via a REST-API,
+- collects temperature and humidity data every 5 minutes from **WeatherSensors**
+- and stores this data for future analytics in the **Database**.
 
-```mermaid
-classDiagram
-    WeatherController ..> WeatherService
-    WeatherService ..> WeatherRepository
+**WeatherSensors**\
+Microservice for interaction with the DHT-22 sensor.
+Exposes a single REST-API. When called, the service reads the current temperature and
+humidity and returns them with a timestamp in JSON format.
 
-    class WeatherController{
-        +currentWeather() WeatherData
-    }
+Repository: https://github.com/weissale1/WeatherSensors
 
-    class WeatherService{
-        +getCurrentWeather() WeatherData
-    }
 
-    class WeatherRepository{
-        <<Interface>>
-    }
-```
+**DB**\
+A Postgres Database. Uses the `postgress:latest` image.
+
+
 ## Sequence diagram
 ```mermaid
 sequenceDiagram
@@ -81,5 +76,28 @@ activate WeatherService
     deactivate WeatherService
 end
 ```
+
+## Service Structure
+
+### Class diagram
+
+```mermaid
+classDiagram
+    WeatherController ..> WeatherService
+    WeatherService ..> WeatherRepository
+
+    class WeatherController{
+        +currentWeather() WeatherData
+    }
+
+    class WeatherService{
+        +getCurrentWeather() WeatherData
+    }
+
+    class WeatherRepository{
+        <<Interface>>
+    }
+```
+
 
 
