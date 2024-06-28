@@ -2,7 +2,7 @@ version: '3'
 
 services:
   api:
-     image: weissale1/weatherstation:0.0.3
+     image: weissale1/weatherstation:0.0.4
      ports:
        - "8080:8080"
      depends_on:
