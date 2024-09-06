@@ -1,21 +1,28 @@
 # WeatherStation
-WeatherStation is a over engineered server application for home temperature and humidity monitoring.
+WeatherStation is a over-engineered server application for home temperature and humidity monitoring.
 
 > This project is used as a playground to try and explore
-> different Frameworks, Languages and distributed architectures using docker.
+> different Frameworks, Languages and distributed architectures using Docker.
 
 The server
 
 
 ## Running and using WeatherStation
-### Using Docker
+### Using docker compose
 1. Copy the docker compose file from this repository.
 2. Run `docker compose up`
 
-> Images are build to run on a arm7 platform.
+> Images in dockerhub are build to run on a arm7 platform. (Like a Rasberry Pi).
+
+### Manual build
+To build this container manually run:
+```
+./gradlew build bootJar
+docker build --platform linux/arm/v7 -t weatherstation:X.X.X .
+```
 
 ## Project Structure
-The whole project consists of 3 Services, each running in their own Docker container.
+The project consists of 3 Services, each running in their own Docker container.
 
 **WeatherStation**\
 Central API server.
