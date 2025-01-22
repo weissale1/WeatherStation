@@ -4,8 +4,6 @@ WeatherStation is a over-engineered server application for home temperature and 
 > This project is used as a playground to try and explore
 > different Frameworks, Languages and distributed architectures using Docker.
 
-The server
-
 
 ## Running and using WeatherStation
 ### Using docker compose
